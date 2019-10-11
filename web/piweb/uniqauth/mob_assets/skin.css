@@ -1,0 +1,79 @@
+/*皮肤白*/
+.body-bg{
+    background:#fff;
+}
+/*logo*/
+.login-idx-body .logo{
+    background:url(./mobile-logo.jpg) no-repeat;
+    background-size:3.2rem 1.5rem;
+    width:3.2rem;
+    height:1.5rem;
+}
+/*登录语字体*/
+.login-idx-body header{
+    color:#999;
+}
+/*登录输入框颜色*/
+.login-idx-form .item .input{
+    background:none;
+    border:1px solid #ccc;
+}
+.login-idx-form .icon{
+    border-color:#e6e6e6;
+}
+/*输入框icon*/
+.login-idx-form .icon-person{
+    background:url(./icon-person-2.png) no-repeat;
+    background-size:0.3rem 0.3rem;
+}
+.login-idx-form .icon-lock{
+    background:url(./icon-lock-2.png) no-repeat;
+    background-size:0.23rem 0.31rem;
+}
+.login-idx-form .icon-yzm{
+    background:url(./icon-yzm-2.png) no-repeat;
+    background-size:0.33rem 0.33rem;
+}
+/*登录按钮*/
+.login-btn .btn{
+    background:#00a7f3;
+    border:none;
+    color:#fff;
+}
+.login-btn .btn:active,.login-btn .btn:hover{
+    background:#0584be;
+}
+.login-idx-opt .a{
+    color:#00a7f3
+}
+/*社交账号登录*/
+.social-aut-login .h3{
+    color:#666;
+}
+.social-aut-login .h3:after,.social-aut-login .h3:before{
+    border-top-color:#e3e3e3;
+}
+.social-aut-login .item{
+    border:none;
+    border-radius:none;
+}
+/*按钮*/
+.btn-org{
+    background-color: #00a7f3;
+    color: #fff;
+}
+.btn-org:hover,.btn-org:active{
+    background:#0584be;
+}
+.btn-org2{
+    color: #fff;
+    background-color:#00a7f3;
+}
+.icon-loading{
+    background:url(./loading.gif) center no-repeat;
+    background-size:100% 100%;
+    height:1em;
+    width:0;
+    vertical-align: middle;
+    display: inline-block;
+}

@@ -1,0 +1,22 @@
+<html>
+	<head>
+    <meta charset="UTF-8">
+    <!-- Device compatibility -->
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <title>上网认证异常</title>
+	</head>
+	<body>
+		<h1>认证异常，3秒后跳转到备用认证方式！</h1>
+	</body>
+	<script>
+		setTimeout(function(){
+			var uastr = navigator.userAgent.toLowerCase();
+			if (uastr.includes('android')||uastr.includes('iphone')){
+				window.location = '/uniqauth/uniqueid_phone.html';
+			} else {
+				window.location = '/uniqauth/uniqueid_pc.html';
+			}
+		}, 3000);
+	</script>
+</html>

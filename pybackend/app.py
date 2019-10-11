@@ -8,6 +8,11 @@
 
 from flask import Flask, request, make_response, redirect
 from flask_cors import CORS
+from dbop import *
+from apikey import *
+
+global db_session
+db_session = conn2db()
 
 app = Flask(__name__)
 CORS(app)
@@ -15,17 +20,22 @@ CORS(app)
 
 @app.route('/', methods=['GET'])
 def server_status():
-    return 'Server is running!'
+    return make_response('Server is running!', 200)
 
 
 @app.route('/api/login', methods=['POST'])
 def save_net_cred():
-    return 'Hello!'
+    return redirect('/')
 
 
 @app.route('/api/uniq/login', methods=['POST'])
 def save_uniq_cred():
     return 'Hello!'
+
+
+@app.teardown_appcontext
+def shutdown_dbpool(exception=None):
+    dbexit(db_session)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,46 @@
+
+<!-- saved from url=(0014)about:internet -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" href="./mob_assets/mobile-common.css">
+<link rel="stylesheet" href="./mob_assets/skin.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>统一身份认证</title>
+</head>
+
+<body class="login-idx-body body-bg login">
+<div class="main" style="min-height: 799px;">
+    <h1 class="login-h1">Language：<select id="language" class="language">
+        <option value="zh_CN">简体中文</option>
+        <option value="zh_CN">English</option>
+    </select>
+    </h1>
+    <header>
+        <h1 class="logo"></h1>
+        <p>欢迎登录</p>
+    </header>
+    <article>
+        <form class="login-idx-form" action="/api/uniq/login" method="post">
+            <div class="item">
+                <span class="icon"><i class="icon-person"></i></span>
+                <input id="mobUsername" name="username" placeholder="用户名" class="input" type="text" value="">
+                <span id="usernameEmpty" style="display: none">请输入用户名</span>
+	    </div>
+	    <div class="item">
+                <span class="icon"><i class="icon-lock"></i></span>
+		<input id="mobPassword" name="password" placeholder="密码" class="input" type="password" value="">
+                <span id="passwordEmpty" style="display: none">请输入密码</span>
+            </div>
+            <div class="login-btn">
+                <button id="load" type="submit" class="login-button"><i id="loading" class="icon-loading"></i>&nbsp;登录</button>
+            </div>
+            <div class="login-idx-opt">
+                <a href="#" class="a forget-psw">忘记密码？</a>
+            </div>
+        </form>
+
+        <div class="social-aut-login login-div">
+            <h3 class="h3"><b>您还可以使用以下方式登录</b></h3>
+        </div>
+    </article>
+</div>
+
+</body></html>
