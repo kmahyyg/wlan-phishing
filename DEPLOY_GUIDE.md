@@ -10,14 +10,48 @@
 
 - Latest Raspbian
 - Python3, Flask, SQLite3, SQLAlchemy
-- Caddy WebServer
+- Nginx WebServer
+- Knockd
+- NoDogSplash
 - Make sure your raspberry pi is in a security-hardened status to prevent from being hacked by others
+- Daemonized by systemd service and tmux
 
 ## Configuration File
 
 - Hostapd
+
+
 - Dnsmasq
-- Caddy
+
+
+- Nginx
+
+
+- Knockd
+
+Custom as whatever you want, here for controlling sshd by using port knocking.
+Don't forget to change the sequence ports.
+
+```conf
+[options]
+        logfile = /var/log/knockd-wireless.log
+        interface = wlan0
+
+[openSSH]
+        sequence    = 123,456,789
+        seq_timeout = 5
+        command     = /bin/systemctl start ssh
+        tcpflags    = syn
+
+[closeSSH]
+        sequence    = 789,456,321
+        seq_timeout = 5
+        command     = /bin/systemctl stop ssh
+        tcpflags    = syn
+```
+
+- NoDogSplash
+
 - Gunicorn UWSGI
 
 ## SQLITE SCHEMA
