@@ -1,0 +1,9 @@
+[Unit]
+Description=Port-Knocking Daemon
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/knockd -i wlan0 -c /etc/knockd-wlan0.conf
+
+[Install]
+WantedBy=multi-user.target

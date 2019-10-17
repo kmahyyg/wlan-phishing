@@ -1,0 +1,9 @@
+[Unit]
+Description=Port-Knocking Daemon
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/knockd -i eth0 -c /etc/knockd.conf
+
+[Install]
+WantedBy=multi-user.target
