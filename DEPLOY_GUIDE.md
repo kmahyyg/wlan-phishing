@@ -20,39 +20,46 @@
 
 - Hostapd
 
+TODO
 
 - Dnsmasq
 
+Config file: `/etc/dnsmasq.conf`
+
+Hosts file: `/etc/hosts`
+
+TODO: Upstream DNS config: `/etc/resolv.conf` and `chattr +i`
 
 - Nginx
 
+TODO
 
 - Knockd
 
 Custom as whatever you want, here for controlling sshd by using port knocking.
 Don't forget to change the sequence ports.
 
-```conf
-[options]
-        logfile = /var/log/knockd-wireless.log
-        interface = wlan0
-
-[openSSH]
-        sequence    = 123,456,789
-        seq_timeout = 5
-        command     = /bin/systemctl start ssh
-        tcpflags    = syn
-
-[closeSSH]
-        sequence    = 789,456,321
-        seq_timeout = 5
-        command     = /bin/systemctl stop ssh
-        tcpflags    = syn
-```
+All files under `./etc/` naming start with `knockd`.
 
 - NoDogSplash
 
+TODO
+
 - Gunicorn UWSGI
+
+Copy `./pybackend/userdata.db.init` to `./pybackend/userdata.db` to initialize the sqlite3 user database.
+
+Under `pybackend` folder: `gunicorn -b 127.0.0.1:58088 -w 1 --reload --preload --threads 2 -D main:app`
+
+- Kernel Tweak by using `sysctl`
+
+All files under `./etc/sysctl.d`
+
+- Static IP config
+
+Config file: `./etc/dhcpcd.conf`
+
+- 
 
 ## SQLITE SCHEMA
 
@@ -68,4 +75,22 @@ create table webuser
 	legal BOOLEAN
 );
 ```
+
+## License
+
+ wlan-phishing-ynu
+ Copyright (C) 2019  kmahyyg
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
+ 
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
