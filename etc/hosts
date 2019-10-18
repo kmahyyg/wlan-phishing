@@ -1,0 +1,26 @@
+# Static table lookup for hostnames.
+# See hosts(5) for details.
+
+127.0.0.1	localhost
+::1		localhost ip6-localhost ip6-loopback
+fe00::0		ip6-localnet
+ff00::0		ip6-mcastprefix
+ff02::1		ip6-allnodes
+ff02::2		ip6-allrouters
+
+10.172.0.1	hotspot.ynu.lan
+10.172.0.1      ynu.lan
+10.172.0.1	web-auth.ynu.edu.cn
+10.172.0.1	connect.rom.miui.com
+10.172.0.1	clients3.google.com
+10.172.0.1	clients1.google.com
+10.172.0.1	connectivitycheck.gstatic.com
+10.172.0.1	connectivitycheck.android.com
+10.172.0.1	gsp1.apple.com
+10.172.0.1	www.appleiphonecell.com
+10.172.0.1	www.airport.us
+10.172.0.1	captive.apple.com
+10.172.0.1	go.microsoft.com
+10.172.0.1	ipv6.msftncsi.com
+10.172.0.1	www.msftncsi.com
+10.172.0.1	connectivitycheck.platform.hicloud.com
