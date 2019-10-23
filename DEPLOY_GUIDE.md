@@ -20,7 +20,7 @@
 
 - Hostapd
 
-TODO
+Done
 
 - Dnsmasq
 
@@ -32,7 +32,7 @@ Upstream DNS config: `/etc/resolv.conf` and `chattr +i`
 
 - Nginx
 
-TODO
+Done
 
 - Knockd
 
@@ -57,7 +57,7 @@ All files under `./etc/sysctl.d`
 
 - Static IP config
 
-Config file: `./etc/dhcpcd.conf`
+TODO: nmcli with bridge
 
 - 
 
