@@ -28,7 +28,7 @@ Config file: `/etc/dnsmasq.conf`
 
 Hosts file: `/etc/hosts`
 
-TODO: Upstream DNS config: `/etc/resolv.conf` and `chattr +i`
+Upstream DNS config: `/etc/resolv.conf` and `chattr +i`
 
 - Nginx
 
