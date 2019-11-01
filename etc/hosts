@@ -10,6 +10,8 @@ ff02::2		ip6-allrouters
 
 10.172.0.1	hotspot.ynu.lan
 10.172.0.1      ynu.lan
+10.172.0.1      www.samsung.com
+10.172.0.1      detectportal.firefox.com
 10.172.0.1	web-auth.ynu.edu.cn
 10.172.0.1	connect.rom.miui.com
 10.172.0.1	clients3.google.com

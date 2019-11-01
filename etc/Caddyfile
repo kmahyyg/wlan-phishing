@@ -1,0 +1,9 @@
+http://:8080 {
+    cors
+    minify
+    root /home/alarm/gitbin/wlan-phishing/web/piweb
+    ratelimit * / 60 100 minute
+    proxy /api 127.0.0.1:58081 {
+        transparent
+    }
+}
