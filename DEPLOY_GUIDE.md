@@ -2,21 +2,32 @@
 
 ## Hardware
 
-- Raspberry Pi 4B Rev 1.1 with Raspbian correctly installed before
+- Raspberry Pi 4B Rev 1.1 with Arch Linux ARM correctly installed before you start
 - Extra WiFi Adapter
 - Wired Connection for initial configuration and monitoring
 
 ## Software
 
-- Latest Raspbian
+- Latest Arch Linux
 - Python3, Flask, SQLite3, SQLAlchemy
-- Nginx WebServer
+- Caddy WebServer, Gunicorn
 - Knockd
 - NoDogSplash
+- Hostapd
+- DNSmasq
+- Resolv.conf
 - Make sure your raspberry pi is in a security-hardened status to prevent from being hacked by others
 - Daemonized by systemd service and tmux
 
 ## Configuration File
+
+- Caddy
+
+`chmod +x` and then `setcap 'cap_net_bind_service=+ep' /usr/local/bin/caddy`, Config File: `/etc/Caddyfile`.
+
+- iptables
+
+Arch Linux doesn't help you enable you by default: `systemctl enable iptables` and reboot your device then.
 
 - Hostapd
 
@@ -39,13 +50,15 @@ All files under `./etc/` naming start with `knockd`.
 
 - NoDogSplash
 
-TODO
+Config file: `/etc/nodogsplash/nodogsplash.conf`
 
 - Gunicorn UWSGI
 
 Copy `./pybackend/userdata.db.init` to `./pybackend/userdata.db` to initialize the sqlite3 user database.
 
-Under `pybackend` folder: `gunicorn -b 127.0.0.1:58088 -w 1 --reload --preload --threads 2 -D main:app`
+Rename `./pybackend/apikey.eg.py` to `./pybackend/apikey.py` for setting database correctly.
+
+Under `pybackend` folder: `gunicorn -b 127.0.0.1:58088 -w 1 --reload --preload --threads 2 -D app:app`
 
 - Kernel Tweak by using `sysctl`
 

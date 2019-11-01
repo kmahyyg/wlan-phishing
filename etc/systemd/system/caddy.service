@@ -1,0 +1,27 @@
+[Unit]
+Description=Caddy HTTP/2 web server
+Documentation=https://caddyserver.com/docs
+After=network-online.target
+Wants=network-online.target systemd-networkd-wait-online.service
+
+[Service]
+Restart=on-abnormal
+Type=simple
+; Do not allow the process to be restarted in a tight loop. If the
+; process fails to start, something critical needs to be fixed.
+StartLimitIntervalSec=14400
+StartLimitBurst=10
+
+User=root
+Group=root
+
+ExecStart=/usr/local/bin/caddy -log stdout -agree=true -conf=/etc/Caddyfile
+ExecReload=/bin/kill -USR1 $MAINPID
+
+; Use graceful shutdown with a reasonable timeout
+KillMode=mixed
+KillSignal=SIGQUIT
+TimeoutStopSec=5s
+
+[Install]
+WantedBy=multi-user.target
