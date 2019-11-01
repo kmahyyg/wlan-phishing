@@ -1,0 +1,17 @@
+[Unit]
+Description=NodogSplash Wifi Authentication Server
+After=network.target
+Wants=hostapd.service network.target dnsmasq.service iptables.service caddy.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+Restart=on-abnormal
+RestartSec=30
+StartLimitBurst=10
+StartLimitIntervalSec=14400
+ExecStart=/usr/bin/nodogsplash -f -s 
+
+[Install]
+WantedBy=multi-user.target
