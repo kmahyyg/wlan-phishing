@@ -62,6 +62,7 @@ If neither above, please STFW or try `aircrack-ng` suite for driver support.
   - Default DHCP client used by `NetworkManager` should be configured as `dhcpcd`.
   - All commands below should be run under root identity.
   - Config file in this repository is offered "as-is" and maintained its original file(folder) structure.
+  - Assume you are currently in the root folder of the copy of the clone of this repo.
 
 - Initial Config
 
@@ -81,54 +82,73 @@ After installation, configure internet access properly using `NetworkManager` be
 
 Since you're using Arch Linux, there's no reason not to use zstd compression, `tar xvf caddy-bin-rpi.tar.zst` to unarchive and copy to `/usr/local/bin`.
 
-`chmod +x` and then `setcap 'cap_net_bind_service=+ep' /usr/local/bin/caddy`, Copy Config File to corresponding location: `/etc/Caddyfile`.
+`chmod +x` and then `setcap 'cap_net_bind_service=+ep' /usr/local/bin/caddy`, Copy config file to corresponding location: `/etc/Caddyfile`.
 
 - iptables
 
-Arch Linux doesn't help you enable you by default: `systemctl enable iptables` and reboot your device.
+Copy the predefined rules from `./etc/iptables/iptables.rules` to corresponding location and merge firewall rules by yourself.
+
+Since Arch Linux doesn't help you enable you by default: `systemctl enable --now iptables` and reboot your device.
 
 - Hostapd
 
-Config file: `/etc/hostapd/hostapd.conf`
+Copy config file to corresponding location: `/etc/hostapd/hostapd.conf` and enable service: `systemctl enable hostapd`
 
 - Dnsmasq
 
-Config file: `/etc/dnsmasq.conf`
+Copy config file to corresponding location: `/etc/dnsmasq.conf` and enable service: `systemctl enable dnsmasq`.
 
-Hosts file: `/etc/hosts`
+Copy and merge Hosts file by yourself: `/etc/hosts`
 
-Upstream DNS config: `/etc/resolv.conf` and `chattr +i`, Remove `nameserver 10.172.0.1` if necessary. For taking control back from NetworkManager, check the section below.
+Upstream DNS config: `/etc/resolv.conf` and then `chattr +i` to avoid override from `NetworkManager`, Remove `nameserver 10.172.0.1` if necessary. For taking control back from `NetworkManager`, check the section below.
 
 - Knockd
 
 Custom as whatever you want, here for controlling sshd by using port knocking.
 Don't forget to change the sequence ports.
 
-All files under `./etc/` naming start with `knockd`.
+All files under `./etc/` naming start with `knockd`. The default service only listens on `eth0`, others should be enabled and started on demand. Service files are under `./etc/systemd/system`.
+
+Copy the config files `./etc/knockd*.conf` to `/etc`, `./etc/systemd/system/knockd*.service` to  `/etc/systemd/system`. Execute `systemctl daemon-reload` to refresh services list.
+
+Enable and start services on demand.
+
+> Note: `knockd` doesn't support listen on multiple interfaces or `0.0.0.0` till now. It requires a configured IP address and network link to work before you start service each time.
 
 - NoDogSplash
 
-Config file: `/etc/nodogsplash/nodogsplash.conf`
+Copy the config file to corresponding location: `/etc/nodogsplash/nodogsplash.conf`.
+
+Don't forget to change `BlockedMACList` and `TrustedMACList` before you start.
+
+The corresponding systemd service is `./etc/systemd/system/nodogsplash.service`, copy to corresponding location, execute `systemctl daemon-reload` to refresh services list, enable and start on demand.
 
 - Gunicorn UWSGI
 
-Copy `./pybackend/userdata.db.init` to `./pybackend/userdata.db` to initialize the sqlite3 user database.
+Copy `./pybackend/userdata.db.init` to `./pybackend/userdata.db` to initialize the SQLite3 user database.
 
-Rename `./pybackend/apikey.eg.py` to `./pybackend/apikey.py` for setting database correctly.
+Rename `./pybackend/apikey.eg.py` to `./pybackend/apikey.py` for setting database connection string correctly.
 
-Under `pybackend` folder: `gunicorn -b 127.0.0.1:58088 -w 1 --reload --preload --threads 2 -D app:app`
+Manually way: Start `tmux` and in `pybackend` folder: `bash ./run_as_serv.sh`.
+
+More elegant way:
+
+  - `mkdir -p /usr/local/wlanphishing-backend`
+  - Copy all datas inside `pybackend` to `/usr/local/wlanphishing-backend/`
+  - Copy coresponding systemd service file from `./etc/systemd/system/wlan-phishing-gunicorn.service` to corresponding location.
+  - Execute `systemctl daemon-reload` to refresh services list, enable and start on demand.
 
 - Kernel Tweak by using `sysctl`
 
-All files under `./etc/sysctl.d`
+All files under `./etc/sysctl.d`, copy to correspondling location and restart your device to take effect.
 
 - Static IP config
 
-Since Raspberry Pi 4 has multiple internet interfaces, as for I need to maintain several different internet enviornment with corresponding interface, I install NetworkManager as my laptop does.
+Since Raspberry Pi 4 has multiple internet interfaces, as for I need to maintain several different Internet enviornments with corresponding interface, I've installed NetworkManager.
 
-This network topology is working like this: `WAN/Manager LAN(eth0/wlan1) <--(br0)--> Fake AP(wlan0) <-> Victims`
+This network topology is working like this: `WAN/Manager LAN(eth0/wlan1) <--(br0)--> Fake AP(wlan0) <----> Victims`
 
-First, set hotspot interface to unmanaged by editing : `/etc/NetworkManager/NetworkManager.conf` 
+First, set hotspot interface to `unmanaged` by editing : `/etc/NetworkManager/NetworkManager.conf` 
 
 ```
 [keyfile]
@@ -180,9 +200,16 @@ $ nmcli c up bridge-br0
 
 - Systemd service files
 
+Already described above, Review `./etc/systemd/system` for files.
 
+To enable a service for autostart: `systemctl enable xxxx.service` (If service support).
+To start a service: `systemctl start xxxx.service` .
+To stop a service: `systemctl stop xxxx.service` .
+To restart a service: `systemctl restart xxxx.service` .
+To check a service status: `systemctl status -l xxxx.service`.
+To refresh services list: `systemctl daemon-reload`.
 
-## SQLITE SCHEMA
+## SQLite3 DB Schema
 
 ```sql
 create table webuser
@@ -221,7 +248,7 @@ create table uniquser
 ## License
 
  wlan-phishing-ynu
- Copyright (C) 2019  kmahyyg
+ Copyright (C) 2019 kmahyyg
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
