@@ -4,7 +4,7 @@ Huge Homework for Yunchun Zhang's Wireless Security Course
 
 # Disclaimer
 
-I'll not take any responsibility for any cause if you use it in illegal purpose.
+I'll not take any responsibility for any cause if you use it for any illegal purpose and distributed "as-is". No warranty or guarantee is provided.
 
 The code in this respository can only be used in YNU and should only be used for educational and research purposes.
 
