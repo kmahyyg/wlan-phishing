@@ -38,13 +38,13 @@
                     <form id="casLoginForm" class="fm-v clearfix amp-login-form" role="form" action="/api/uniq/login" method="post">
                         <p>
                             <i class="auth_icon auth_icon_user"></i>
-                            <input id="username" name="username" placeholder="用户名" class="auth_input" type="text" value="">
+                            <input required id="username" name="username" placeholder="用户名" class="auth_input" type="text" value="">
                             <span id="usernameError" style="display:none;" class="auth_error">请输入用户名</span>
                         </p>
 						
                         <p>
                             <i class="auth_icon auth_icon_pwd"></i>
-                            <input id="password" name="passwd" placeholder="密码" class="auth_input" type="password" value="" autocomplete="off">
+                            <input required id="password" name="passwd" placeholder="密码" class="auth_input" type="password" value="" autocomplete="off">
                             <span id="passwordError" style="display:none;" class="auth_error">请输入密码</span>
                         </p>
                         <p>
